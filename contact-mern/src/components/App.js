@@ -1,7 +1,10 @@
 import "./App.css";
+import LoginForm from "./LoginForm";
 
 function App() {
-  return <div className="App">hiii</div>;
+  return (
+      <LoginForm />
+  )
 }
 
 export default App;
