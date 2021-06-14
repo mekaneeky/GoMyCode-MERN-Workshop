@@ -1,5 +1,5 @@
 import React from "react";
-import { ListGroup, Button, Container } from "react-bootstrap";
+import { ListGroup, Container } from "react-bootstrap";
 
 import CustomModal from "./CustomModal";
 const ContactList = () => {
