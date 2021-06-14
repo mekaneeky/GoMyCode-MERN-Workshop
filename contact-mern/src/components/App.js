@@ -1,10 +1,9 @@
 import "./App.css";
 import LoginForm from "./LoginForm";
+import ContactList from "./ContactList";
 
 function App() {
-  return (
-      <LoginForm />
-  )
+  return <ContactList />;
 }
 
 export default App;
