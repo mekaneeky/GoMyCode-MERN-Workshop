@@ -1,10 +1,10 @@
 const express = require("express");
-const { Contact } = require("./models/Contact");
+const Contact = require("./models/Contact");
 const app = express();
 const port = 4000;
 const bodyParser = require("body-parser");
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 display_callback = (err, result) => {
@@ -27,11 +27,11 @@ app.get("/", function (req, res) {
 
 app.post("/", function (req, res) {
   res.status(200);
-  Contact.create({
-    name: req.body["name"],
-    number: req.body["number"],
-    email: req.body["email"],
-  });
+  const contact = new Contact(req.body);
+  contact
+    .save()
+    .then((result) => res.send(result))
+    .catch((err) => console.log(err));
 });
 
 app.delete("/:userId", function (req, res) {

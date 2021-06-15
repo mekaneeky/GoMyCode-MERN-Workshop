@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const Schema = mongoose.Schema;
 require("dotenv").config();
 
 mongoose.connect(
@@ -11,19 +11,18 @@ mongoose.connect(
     );
     if (error) {
       console.log("error" + error);
-    } else {
     }
   }
 );
 
 mongoose.set("useFindAndModify", false);
 
-let contactSchema = new Schema({
+const contactSchema = new Schema({
   name: String, // String is shorthand for {type: String}
   number: String,
   email: String,
 });
 
-let Contact = mongoose.model("Contact", contactSchema);
+const Contact = mongoose.model("Contact", contactSchema);
 
-exports.Contact = Contact;
+module.exports = Contact;
