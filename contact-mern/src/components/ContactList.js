@@ -1,37 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { ListGroup, Container } from "react-bootstrap";
-
 import CustomModal from "./CustomModal";
+
 const ContactList = () => {
-  const contactArr = [
-    {
-      name: "Ibrahim",
-      phone: "010101",
-      email: "email@em.com",
-    },
-    {
-      name: "ahmed",
-      phone: "010101",
-      email: "email@em.com",
-    },
-  ];
-  const renderList = (list) => {
-    return list.map((contact) => {
-      return (
-        <ListGroup.Item>
-          {contact.name}
-          <CustomModal
-            name={contact.name}
-            email={contact.email}
-            phone={contact.phone}
-          />
-        </ListGroup.Item>
-      );
-    });
+  const [contacts, setContact] = useState([]);
+
+  const getList = async () => {
+    const response = await axios.get("http://localhost:4000/");
+    setContact(response.data);
   };
+
+  useEffect(() => {
+    getList();
+  }, []);
+
+  const renderList = contacts.map((contact) => {
+    return (
+      <ListGroup.Item key={contact._id}>
+        {contact.name}
+        <CustomModal
+          name={contact.name}
+          email={contact.email}
+          phone={contact.phone}
+        />
+      </ListGroup.Item>
+    );
+  });
+
   return (
     <Container>
-      <ListGroup>{renderList(contactArr)}</ListGroup>
+      <ListGroup>{renderList}</ListGroup>
     </Container>
   );
 };

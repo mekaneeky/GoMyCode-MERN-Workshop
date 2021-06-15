@@ -20,8 +20,8 @@ app.get("/", function (req, res) {
   Contact.find({}).then((users) => {
     // <-- Update to your call of choice.
     //oki
-    console.log(users);
-    res.json({ users });
+
+    res.send(users);
   });
 });
 
