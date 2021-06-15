@@ -19,6 +19,7 @@ app.get("/", function (req, res) {
   res.set("Content-type", "text/json");
   Contact.find({}).then((users) => {
     // <-- Update to your call of choice.
+    //oki
     console.log(users);
     res.json({ users });
   });
