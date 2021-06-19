@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const passportLocalMongoose = require("passport-local-mongoose");
+
 require("dotenv").config();
 
 mongoose.connect(
@@ -18,11 +20,12 @@ mongoose.connect(
 mongoose.set("useFindAndModify", false);
 
 const contactSchema = new Schema({
-  name: String, // String is shorthand for {type: String}
-  number: String,
+  name: String,
+  phone: String,
   email: String,
 });
 
+contactSchema.plugin(passportLocalMongoose);
 const Contact = mongoose.model("Contact", contactSchema);
 
 module.exports = Contact;

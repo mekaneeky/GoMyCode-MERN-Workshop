@@ -1,11 +1,47 @@
 const express = require("express");
 const Contact = require("./models/Contact");
+const User = require("./models/User");
 const app = express();
 const port = 4000;
 const bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
+var passport = require("passport"),
+  LocalStrategy = require("passport-local").Strategy;
+var session = require("express-session");
 
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(session({ secret: "keyboard cat" }));
+app.use(passport.initialize());
+app.use(passport.session());
+// app.use(app.router);
+
+passport.use(
+  new LocalStrategy(function (username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) {
+        return done(err);
+      }
+      if (!user) {
+        return done(null, false, { message: "Incorrect username." });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: "Incorrect password." });
+      }
+      return done(null, user);
+    });
+  })
+);
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user);
+  });
+});
 
 display_callback = (err, result) => {
   if (err) {
@@ -25,13 +61,15 @@ app.get("/", function (req, res) {
   });
 });
 
-app.post("/", function (req, res) {
+app.post("/addcontact", function (req, res) {
   res.status(200);
   const contact = new Contact(req.body);
+
   contact
     .save()
+
     .then((result) => {
-      res.send(result);
+      res.redirect("http://localhost:3000/");
       res.end();
     })
     .catch((err) => console.log(err));
@@ -52,6 +90,31 @@ app.put("/:userId", function (req, res) {
     new: true,
   }).exec();
 });
+
+// OAUTH Config
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "http://localhost:3000/",
+    failureRedirect: "/shiiit",
+    failureFlash: false,
+  })
+);
+app.post("/signup", function (req, res) {
+  res.status(200);
+  const user = new User(req.body);
+
+  console.log(user);
+  user
+    .save()
+
+    .then((result) => {
+      res.redirect("http://localhost:3000/");
+      res.end();
+    })
+    .catch((err) => console.log(err));
+});
+
 app.listen(port, function () {
   console.log(
     "The server is running, " +

@@ -3,21 +3,13 @@ import { Form, Button, Container } from "react-bootstrap";
 function SignUpForm() {
   return (
     <Container>
-      <Form>
+      <h5>Sign Up</h5>
+      <Form action="http://localhost:4000/signup" method="post">
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter Username"
-            name="username"
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
             name="username"
           />
         </Form.Group>

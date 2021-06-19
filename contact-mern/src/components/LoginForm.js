@@ -3,7 +3,8 @@ import { Form, Button, Container } from "react-bootstrap";
 function LoginForm() {
   return (
     <Container>
-      <Form>
+      <h5>Login</h5>
+      <Form action="http://localhost:4000/login" method="post">
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Username</Form.Label>
           <Form.Control
