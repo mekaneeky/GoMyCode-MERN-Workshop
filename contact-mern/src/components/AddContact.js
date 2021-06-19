@@ -1,6 +1,5 @@
 import React from "react";
 import { Form, Button, Container } from "react-bootstrap";
-import history from "../history";
 const Contact = () => {
   return (
     <Container>
