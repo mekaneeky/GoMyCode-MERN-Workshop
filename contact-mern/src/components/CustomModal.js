@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+
 import { Modal, Button } from "react-bootstrap";
-const CustomModal = ({ name, email, phone }) => {
+const CustomModal = ({ name, email, phone, id, handleDelete }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -28,6 +29,9 @@ const CustomModal = ({ name, email, phone }) => {
           </Button>
           <Button variant="primary" onClick={handleClose}>
             Edit
+          </Button>
+          <Button variant="danger" onClick={() => handleDelete(id)}>
+            delete
           </Button>
         </Modal.Footer>
       </Modal>

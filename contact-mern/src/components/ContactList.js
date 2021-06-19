@@ -5,7 +5,12 @@ import CustomModal from "./CustomModal";
 
 const ContactList = () => {
   const [contacts, setContact] = useState([]);
-
+  const handleDelete = (id) => {
+    axios
+      .delete(`http://localhost:4000/${id}`)
+      .then(() => getList())
+      .catch((err) => console.error(err));
+  };
   const getList = async () => {
     const response = await axios.get("http://localhost:4000/");
     setContact(response.data);
@@ -23,6 +28,8 @@ const ContactList = () => {
           name={contact.name}
           email={contact.email}
           phone={contact.phone}
+          id={contact._id}
+          handleDelete={handleDelete}
         />
       </ListGroup.Item>
     );

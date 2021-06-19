@@ -3,7 +3,7 @@ import { Form, Button, Container } from "react-bootstrap";
 const Contact = () => {
   return (
     <Container>
-      <Form>
+      <Form action="http://localhost:4000/${id}" method="Post">
         <Form.Group controlId="Username">
           <Form.Label>Username</Form.Label>
           <Form.Control

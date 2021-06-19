@@ -30,7 +30,10 @@ app.post("/", function (req, res) {
   const contact = new Contact(req.body);
   contact
     .save()
-    .then((result) => res.send(result))
+    .then((result) => {
+      res.send(result);
+      res.end();
+    })
     .catch((err) => console.log(err));
 });
 
@@ -39,10 +42,16 @@ app.delete("/:userId", function (req, res) {
   res.set("Content-type", "text/html");
   Contact.findByIdAndRemove(req.params.userId).exec(function (err, result) {
     display_callback(err, result);
-    res.end("done");
+    res.status(200);
+    res.end();
   });
 });
 
+app.put("/:userId", function (req, res) {
+  Contact.findOneAndUpdate({ _id: req.params.userId }, req.body, {
+    new: true,
+  }).exec();
+});
 app.listen(port, function () {
   console.log(
     "The server is running, " +
