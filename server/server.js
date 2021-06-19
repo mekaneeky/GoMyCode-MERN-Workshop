@@ -43,7 +43,7 @@ passport.deserializeUser(function (id, done) {
   });
 });
 
-display_callback = (err, result) => {
+const display_callback = (err, result) => {
   if (err) {
     throw err;
   }
