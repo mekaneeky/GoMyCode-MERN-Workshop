@@ -15,6 +15,10 @@ function SignUpForm() {
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
+          <Form.Label>Email</Form.Label>
+          <Form.Control name="email" type="email" placeholder="email" />
+        </Form.Group>
+        <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             name="password"

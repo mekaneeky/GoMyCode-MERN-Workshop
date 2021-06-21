@@ -23,6 +23,7 @@ const contactSchema = new Schema({
   name: String,
   phone: String,
   email: String,
+  userId: String,
 });
 
 contactSchema.plugin(passportLocalMongoose);

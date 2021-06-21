@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   username: String,
-  password: String, // String is shorthand for {type: String}
+  password: String,
+  email: String,
 });
 userSchema.methods.validPassword = function (pwd) {
   // EXAMPLE CODE!

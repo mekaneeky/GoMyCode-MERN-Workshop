@@ -1,9 +1,23 @@
 var passport = require("passport"),
   LocalStrategy = require("passport-local").Strategy;
+const User = require("./models/User");
+
+passport.serializeUser(function (user, done) {
+  console.log("msg from serialize" + user);
+
+  done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
+    console.log("msg from deserialize" + user);
+    done(err, user);
+  });
+});
 
 passport.use(
   new LocalStrategy(function (username, password, done) {
-    Contact.findOne({ username: username }, function (err, user) {
+    User.findOne({ username: username }, function (err, user) {
       if (err) {
         return done(err);
       }
@@ -17,11 +31,5 @@ passport.use(
     });
   })
 );
-app.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
-    failureFlash: true,
-  })
-);
+
+module.exports = passport;
