@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
+import EditContact from "./EditContact";
 import { Modal, Button } from "react-bootstrap";
-const CustomModal = ({ name, email, phone, id, handleDelete }) => {
+const CustomModal = ({ name, email, phone, id, handleDelete, handleEdit }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -18,20 +19,23 @@ const CustomModal = ({ name, email, phone, id, handleDelete }) => {
           <Modal.Title>{name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {name} <br />
-          {email}
-          <br />
-          {phone}
+          <p>id: {id}</p>
+
+          <EditContact
+            name={name}
+            phone={phone}
+            email={email}
+            id={id}
+            handleEdit={handleEdit}
+          />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Edit
-          </Button>
+
           <Button variant="danger" onClick={() => handleDelete(id)}>
-            delete
+            Delete
           </Button>
         </Modal.Footer>
       </Modal>

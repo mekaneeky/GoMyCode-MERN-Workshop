@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Button, Container } from "react-bootstrap";
-const Contact = () => {
+
+const AddContact = () => {
   return (
     <Container>
       <Form action="http://localhost:4000/addcontact" method="Post">
@@ -17,6 +18,7 @@ const Contact = () => {
             placeholder="Enter Phone Number"
           />
         </Form.Group>
+
         <Form.Group controlId="Email">
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -34,4 +36,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default AddContact;

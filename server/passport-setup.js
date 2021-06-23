@@ -3,14 +3,11 @@ var passport = require("passport"),
 const User = require("./models/User");
 
 passport.serializeUser(function (user, done) {
-  console.log("msg from serialize" + user);
-
   done(null, user.id);
 });
 
 passport.deserializeUser(function (id, done) {
   User.findById(id, function (err, user) {
-    console.log("msg from deserialize" + user);
     done(err, user);
   });
 });
@@ -31,5 +28,3 @@ passport.use(
     });
   })
 );
-
-module.exports = passport;
