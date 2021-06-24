@@ -3,6 +3,7 @@ const port = 4000;
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth-routes");
 const Contact = require("./models/Contact");
+const User = require("./models/User");
 const bodyParser = require("body-parser");
 
 const cors = require("cors");
@@ -14,9 +15,7 @@ const expressSession = require("express-session");
 
 const app = express();
 //  mongoose config
-mongoose.set("useNewUrlParser", true);
-mongoose.set("useFindAndModify", false);
-mongoose.set("useCreateIndex", true);
+
 mongoose.connect(
   "mongodb+srv://mern-app:mern1234@cluster0.ikppq.mongodb.net/mern-contact?retryWrites=true&w=majority",
   { useNewUrlParser: true, useUnifiedTopology: true },
@@ -29,7 +28,13 @@ mongoose.connect(
     );
   }
 );
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
+app.use(express.json());
+
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(bodyParser.json());
 
 // app.use(app.router);
@@ -65,39 +70,45 @@ const display_callback = (err, result) => {
   console.log("result: " + result);
 };
 
-// app.use("/profile", profileRoutes);
+app.use((req, res, next) => {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.redirect("http://localhost:3000/login");
+  }
+});
 
 app.get("/", function (req, res) {
-  // req.user - will exist
-  // load user orders and render them
-  res.status(200);
-  res.set("Content-type", "text/json");
+  console.log(req.isAuthenticated());
+  console.log(req.session);
 
-  // console.log("logged in user: " + req.user);
   Contact.find({ userId: req.user._id }).then((contactsInfo) => {
-    // <-- Update to your call of choice.
+    res.set("Content-type", "text/json");
+    res.status(200);
+
     res.send(contactsInfo);
   });
 });
 
+// Add New Contact
 app.post("/addcontact", function (req, res) {
   // add email with contact
 
-  console.log(`logged in user from add contact:  ${req.user} \n \n`);
-  if (req.user === undefined) {
-    res.redirect("http://localhost:3000/login");
-  } else {
-    Contact.create({ ...req.body, userId: req.user._id })
+  // res.set("Content-type", "text/json");
 
-      .then((result) => {
-        res.redirect("http://localhost:3000/");
-        res.status(200);
+  let newUser = { ...req.body, userId: req.user._id };
 
-        res.end();
-      })
-      .catch((err) => console.log(err + "\n"));
-  }
+  Contact.create(newUser)
+
+    .then((result) => {
+      res.redirect("http://localhost:3000/");
+      res.status(200);
+      res.end();
+    })
+    .catch((err) => console.log(err + "\n"));
 });
+
+// Delete Contact
 
 app.delete("/:userId", function (req, res) {
   res.status(200);

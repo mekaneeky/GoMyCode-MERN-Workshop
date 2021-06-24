@@ -10,6 +10,6 @@ userSchema.methods.validPassword = function (pwd) {
   // EXAMPLE CODE!
   return this.password === pwd;
 };
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("user", userSchema);
 
 module.exports = User;

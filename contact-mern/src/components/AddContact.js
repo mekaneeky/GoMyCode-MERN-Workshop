@@ -7,7 +7,7 @@ const AddContact = () => {
       <Form action="http://localhost:4000/addcontact" method="Post">
         <Form.Group controlId="Username">
           <Form.Label>Name</Form.Label>
-          <Form.Control type="text" placeholder="Enter name" name="name" />
+          <Form.Control type="text" placeholder="Enter name" name="username" />
         </Form.Group>
 
         <Form.Group controlId="Phone">

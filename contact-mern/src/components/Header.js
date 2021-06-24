@@ -12,7 +12,7 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
-            <Link to="/AddContact" className="nav-link">
+            <Link to="/addcontact" className="nav-link">
               Add Contact
             </Link>
             <Link to="/login" className="nav-link">

@@ -2,7 +2,14 @@ import React, { useState } from "react";
 
 import EditContact from "./EditContact";
 import { Modal, Button } from "react-bootstrap";
-const CustomModal = ({ name, email, phone, id, handleDelete, handleEdit }) => {
+const CustomModal = ({
+  username,
+  email,
+  phone,
+  id,
+  handleDelete,
+  handleEdit,
+}) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -16,13 +23,13 @@ const CustomModal = ({ name, email, phone, id, handleDelete, handleEdit }) => {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{name}</Modal.Title>
+          <Modal.Title>{username}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>id: {id}</p>
 
           <EditContact
-            name={name}
+            username={username}
             phone={phone}
             email={email}
             id={id}

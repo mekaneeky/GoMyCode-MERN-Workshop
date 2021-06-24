@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 
-const EditContact = ({ name, email, phone, id, handleEdit }) => {
-  const [contactName, setContactName] = useState(name);
+const EditContact = ({ username, email, phone, id, handleEdit }) => {
+  const [contactName, setContactName] = useState(username);
   const [contactPhone, setContactPhone] = useState(phone);
   const [contactEmail, setContactEmail] = useState(email);
   let formValues = {
-    name: contactName,
+    username: contactName,
     phone: contactPhone,
     email: contactEmail,
   };

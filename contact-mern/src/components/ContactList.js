@@ -38,9 +38,9 @@ const ContactList = () => {
   const renderList = contacts.map((contact) => {
     return (
       <ListGroup.Item key={contact._id}>
-        {contact.name}
+        {contact.username}
         <CustomModal
-          name={contact.name}
+          username={contact.username}
           email={contact.email}
           phone={contact.phone}
           id={contact._id}
