@@ -5,7 +5,7 @@ const User = require("../models/User");
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "http://localhost:3000/addcontact",
+    successRedirect: "http://localhost:3000/",
     failureRedirect: "http://localhost:3000/login",
   })
 );

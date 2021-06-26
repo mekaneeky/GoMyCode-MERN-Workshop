@@ -3,7 +3,7 @@ import axios from "axios";
 import history from "../history";
 import { ListGroup, Container } from "react-bootstrap";
 import CustomModal from "./CustomModal";
-
+import cookie from "react-cookies";
 // import Cookies from "js-cookie";
 
 const ContactList = () => {
@@ -33,6 +33,7 @@ const ContactList = () => {
 
   useEffect(() => {
     getList();
+    console.log(cookie.loadAll());
   }, []);
 
   const renderList = contacts.map((contact) => {

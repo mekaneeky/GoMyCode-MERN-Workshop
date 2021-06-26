@@ -1,6 +1,8 @@
 import "./App.css";
 import { Form, Button, Container } from "react-bootstrap";
+
 function LoginForm() {
+  // console.log(cookie);
   return (
     <Container>
       <h5>Login</h5>
